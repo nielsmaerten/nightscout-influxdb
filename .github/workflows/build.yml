@@ -1,0 +1,103 @@
+name: Build Binaries
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*.*.*"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v2.x
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Check formatting
+        if: matrix.os == 'ubuntu-latest'
+        run: make check
+
+      - name: Build binary
+        run: make build
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: ns-to-influxdb-${{ matrix.os }}
+          path: ./dist/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract version
+        id: extract_version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Display structure of downloaded files
+        run: ls -R ./dist
+
+      - name: Organize files
+        env:
+          VERSION: ${{ steps.extract_version.outputs.version }}
+        run: |
+          for dir in ./dist/*; do
+            ORIGINAL_OS_NAME=$(basename "$dir" | sed 's/ns-to-influxdb-//')
+            case "$ORIGINAL_OS_NAME" in
+              windows-latest)
+                OS_NAME="win"
+                EXT=".exe"
+                ;;
+              macos-latest)
+                OS_NAME="macos"
+                EXT=""
+                ;;
+              ubuntu-latest)
+                OS_NAME="linux"
+                EXT=""
+                ;;
+              *)
+                echo "Unknown OS: $ORIGINAL_OS_NAME"
+                exit 1
+                ;;
+            esac
+            mv "$dir"/ns-to-influxdb$EXT ./dist/ns-to-influxdb-$OS_NAME-$VERSION$EXT
+          done
+
+      - name: Display structure of downloaded files
+        run: ls -R ./dist
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+          tag: ${{ github.ref }}
+          name: v${{ steps.extract_version.outputs.version }}
+          draft: true
+          artifacts: ./dist/*
