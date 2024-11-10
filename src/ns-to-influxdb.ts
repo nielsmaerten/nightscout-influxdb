@@ -149,11 +149,52 @@ async function fetchNightscoutEntries(opts: {
 }
 
 /**
- * Write Nightscout entries to InfluxDB
- * @param entries Array of Nightscout entries
+ * Fetch Nightscout treatments since a given timestamp
+ * @param opts Options object containing since, to, and limit
  */
-async function writeEntriesToInflux(entries: NightscoutEntry[]) {
+async function fetchNightscoutTreatments(opts: {
+  since: number;
+  limit?: number;
+}): Promise<NightscoutTreatment[]> {
+  const { since, limit = 100 } = opts;
+
+  // Nightscout expects dates in milliseconds
+  const params: any = {
+    limit,
+    date$gte: since,
+    sort: "date",
+  };
+
+  const url = `${NIGHTSCOUT_URL}/api/v3/treatments.json`;
+  console.log(
+    "Fetching Nightscout treatments since",
+    new Date(since).toISOString(),
+  );
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${await getJWT()}`,
+      },
+      params,
+      paramsSerializer: (params) => qs.stringify(params, { encode: false }),
+    });
+    return response.data.result;
+  } catch (error: any) {
+    const m = JSON.stringify(error.response.data);
+    console.error("Error fetching Nightscout treatments:", m);
+    throw error;
+  }
+}
+
+/**
+ * Write Nightscout entries and treatments to InfluxDB
+ * @param entries Array of Nightscout entries
+ * @param treatments Array of Nightscout treatments
+ */
+async function writeEntriesToInflux(entries: NightscoutEntry[], treatments: NightscoutTreatment[]) {
   console.log("Writing", entries.length, "entries to InfluxDB...");
+  console.log("Writing", treatments.length, "treatments to InfluxDB...");
   const writeApi = influxDB.getWriteApi(INFLUXDB_ORG, INFLUXDB_BUCKET);
 
   for (const entry of entries) {
@@ -165,6 +206,18 @@ async function writeEntriesToInflux(entries: NightscoutEntry[]) {
       .timestamp(new Date(entry.date));
 
     writeApi.writePoint(point);
+  }
+
+  for (const treatment of treatments) {
+    if (["Temp Basal", "Correction Bolus", "Carb Correction"].includes(treatment.eventType)) {
+      const point = new Point("treatment")
+        .stringField("eventType", treatment.eventType)
+        .floatField("insulin", treatment.insulin || 0)
+        .floatField("carbs", treatment.carbs || 0)
+        .timestamp(new Date(treatment.date));
+
+      writeApi.writePoint(point);
+    }
   }
 
   try {
@@ -237,9 +290,9 @@ async function main() {
   console.log("From date:", fromDate ? fromDate.toISOString() : "not provided");
   console.log("To date:", toDate ? toDate.toISOString() : "not provided");
 
-  let moreEntriesAvailable = true;
+  let moreRecordsAvailable = true;
   try {
-    while (moreEntriesAvailable) {
+    while (moreRecordsAvailable) {
       const since = fromDate ? fromDate.getTime() : await getLatestTimestamp();
 
       let entries = await fetchNightscoutEntries({
@@ -247,18 +300,28 @@ async function main() {
         limit: 1000,
       });
 
-      // If toDate is provided, remove entries after that date
+      let treatments = await fetchNightscoutTreatments({
+        since,
+        limit: 1000,
+      });
+
+      // If toDate is provided, remove entries and treatments after that date
       if (toDate) {
         entries = entries.filter((entry) => entry.date <= toDate.getTime());
+        treatments = treatments.filter((treatment) => treatment.date <= toDate.getTime());
       }
 
-      if (entries.length > 0) {
-        await writeEntriesToInflux(entries);
-        // Set fromDate to the last entry date + 1ms (to avoid fetching the same entry again)
-        fromDate = new Date(entries[entries.length - 1].date + 1);
+      if (entries.length > 0 || treatments.length > 0) {
+        await writeEntriesToInflux(entries, treatments);
+        // Set fromDate to the last entry or treatment date + 1ms (to avoid fetching the same entry or treatment again)
+        const lastDate = Math.max(
+          entries.length > 0 ? entries[entries.length - 1].date : 0,
+          treatments.length > 0 ? treatments[treatments.length - 1].date : 0
+        );
+        fromDate = new Date(lastDate + 1);
       } else {
-        console.log("No new entries found. Exiting");
-        moreEntriesAvailable = false;
+        console.log("No new entries or treatments found. Exiting");
+        moreRecordsAvailable = false;
       }
     }
   } catch (error: any) {
@@ -273,4 +336,13 @@ type NightscoutEntry = {
   date: number;
   dateString: string;
   // There's more, but we only need these fields
+};
+
+type NightscoutTreatment = {
+  eventType: string;
+  insulin?: number;
+  carbs?: number;
+  date: number;
+  // There's more, but we only need these fields
+  // TODO: Look into other possible types of treatments
 };
