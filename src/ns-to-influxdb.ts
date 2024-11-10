@@ -75,9 +75,11 @@ async function getLatestTimestamp(
 
   if (__shortRange) {
     console.log("Querying InfluxDB for the most recent measurement...");
-  } else {console.log(
+  } else {
+    console.log(
       "No measurements found in the last 30 days. Extending range...",
-    );}
+    );
+  }
 
   return new Promise<number>((resolve, reject) => {
     let latestTime: number | null = null;
@@ -192,7 +194,10 @@ async function fetchNightscoutTreatments(opts: {
  * @param entries Array of Nightscout entries
  * @param treatments Array of Nightscout treatments
  */
-async function writeEntriesToInflux(entries: NightscoutEntry[], treatments: NightscoutTreatment[]) {
+async function writeEntriesToInflux(
+  entries: NightscoutEntry[],
+  treatments: NightscoutTreatment[],
+) {
   console.log("Writing", entries.length, "entries to InfluxDB...");
   console.log("Writing", treatments.length, "treatments to InfluxDB...");
   const writeApi = influxDB.getWriteApi(INFLUXDB_ORG, INFLUXDB_BUCKET);
@@ -209,15 +214,8 @@ async function writeEntriesToInflux(entries: NightscoutEntry[], treatments: Nigh
   }
 
   for (const treatment of treatments) {
-    if (["Temp Basal", "Correction Bolus", "Carb Correction"].includes(treatment.eventType)) {
-      const point = new Point("treatment")
-        .stringField("eventType", treatment.eventType)
-        .floatField("insulin", treatment.insulin || 0)
-        .floatField("carbs", treatment.carbs || 0)
-        .timestamp(new Date(treatment.date));
-
-      writeApi.writePoint(point);
-    }
+    const point = pointFromTreatment(treatment);
+    if (point) writeApi.writePoint(point);
   }
 
   try {
@@ -260,6 +258,15 @@ async function deleteAllNightscoutDataFromInfluxDB() {
     console.error("Error deleting data from InfluxDB:", error.message);
     throw error;
   }
+}
+
+/**
+ * Transforms a Nightscout treatment into an InfluxDB point
+ */
+export async function pointFromTreatment(
+  treatment: NightscoutTreatment,
+): Point {
+  const { eventType, carbs, insulin } = treatment;
 }
 
 // Main function
@@ -308,7 +315,9 @@ async function main() {
       // If toDate is provided, remove entries and treatments after that date
       if (toDate) {
         entries = entries.filter((entry) => entry.date <= toDate.getTime());
-        treatments = treatments.filter((treatment) => treatment.date <= toDate.getTime());
+        treatments = treatments.filter((treatment) =>
+          treatment.date <= toDate.getTime()
+        );
       }
 
       if (entries.length > 0 || treatments.length > 0) {
@@ -316,7 +325,7 @@ async function main() {
         // Set fromDate to the last entry or treatment date + 1ms (to avoid fetching the same entry or treatment again)
         const lastDate = Math.max(
           entries.length > 0 ? entries[entries.length - 1].date : 0,
-          treatments.length > 0 ? treatments[treatments.length - 1].date : 0
+          treatments.length > 0 ? treatments[treatments.length - 1].date : 0,
         );
         fromDate = new Date(lastDate + 1);
       } else {
@@ -338,11 +347,19 @@ type NightscoutEntry = {
   // There's more, but we only need these fields
 };
 
-type NightscoutTreatment = {
+interface NightscoutTreatment {
   eventType: string;
-  insulin?: number;
-  carbs?: number;
   date: number;
-  // There's more, but we only need these fields
-  // TODO: Look into other possible types of treatments
+  carbs?: number;
+  isSMB?: boolean;
+  insulin?: number;
+
 };
+
+interface TempBasal extends NightscoutTreatment {
+  rate: number;
+  duration: number;
+}
+
+
+
