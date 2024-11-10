@@ -1,6 +1,6 @@
 {
   "name": "nightscout-influxdb",
-  "version": "0.0.18",
+  "version": "0.1.0",
   "main": "src/ns-to-influxdb.ts",
   "repository": "https://github.com/nielsmaerten/nightscout-influxdb",
   "author": "Niels Maerten <niels@maerten.be>",
