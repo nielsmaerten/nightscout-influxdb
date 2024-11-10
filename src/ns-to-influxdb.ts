@@ -73,6 +73,12 @@ async function getLatestTimestamp(
       |> limit(n:1)
   `;
 
+  if (__shortRange) {
+    console.log("Querying InfluxDB for the most recent measurement...");
+  } else {console.log(
+      "No measurements found in the last 30 days. Extending range...",
+    );}
+
   return new Promise<number>((resolve, reject) => {
     let latestTime: number | null = null;
 
@@ -88,12 +94,14 @@ async function getLatestTimestamp(
       complete() {
         if (latestTime !== null) {
           // Last timestamp found, resolve
+          console.log("Most recent measurement found at", new Date(latestTime));
           resolve(latestTime);
         } else if (__shortRange) {
           // Try again with long range search
           resolve(getLatestTimestamp({ __shortRange: false }));
         } else {
           // If no data, return 0 to fetch all data
+          console.log("No measurements found in InfluxDB.");
           resolve(0);
         }
       },
@@ -107,10 +115,9 @@ async function getLatestTimestamp(
  */
 async function fetchNightscoutEntries(opts: {
   since: number;
-  to?: number;
   limit?: number;
 }): Promise<NightscoutEntry[]> {
-  const { since, to, limit = 100 } = opts;
+  const { since, limit = 100 } = opts;
 
   // Nightscout expects dates in milliseconds
   const params: any = {
@@ -119,11 +126,11 @@ async function fetchNightscoutEntries(opts: {
     sort: "date",
   };
 
-  if (to) {
-    params.date$lte = to;
-  }
-
   const url = `${NIGHTSCOUT_URL}/api/v3/entries.json`;
+  console.log(
+    "Fetching Nightscout entries since",
+    new Date(since).toISOString(),
+  );
 
   try {
     const response = await axios.get(url, {
@@ -146,6 +153,7 @@ async function fetchNightscoutEntries(opts: {
  * @param entries Array of Nightscout entries
  */
 async function writeEntriesToInflux(entries: NightscoutEntry[]) {
+  console.log("Writing", entries.length, "entries to InfluxDB...");
   const writeApi = influxDB.getWriteApi(INFLUXDB_ORG, INFLUXDB_BUCKET);
 
   for (const entry of entries) {
@@ -161,7 +169,6 @@ async function writeEntriesToInflux(entries: NightscoutEntry[]) {
 
   try {
     await writeApi.close();
-    console.log("Data successfully written to InfluxDB.");
   } catch (error: any) {
     console.error("Error writing data to InfluxDB:", error.message);
     throw error;
@@ -233,22 +240,22 @@ async function main() {
   let moreEntriesAvailable = true;
   try {
     while (moreEntriesAvailable) {
-      const latestTimestamp = fromDate
-        ? fromDate.getTime()
-        : await getLatestTimestamp();
+      const since = fromDate ? fromDate.getTime() : await getLatestTimestamp();
 
-      console.log(
-        "Fetching Nightscout entries since: ",
-        new Date(latestTimestamp).toISOString(),
-      );
-      const entries = await fetchNightscoutEntries({
-        since: latestTimestamp,
-        to: toDate?.getTime(),
+      let entries = await fetchNightscoutEntries({
+        since,
         limit: 1000,
       });
 
+      // If toDate is provided, remove entries after that date
+      if (toDate) {
+        entries = entries.filter((entry) => entry.date <= toDate.getTime());
+      }
+
       if (entries.length > 0) {
         await writeEntriesToInflux(entries);
+        // Set fromDate to the last entry date + 1ms (to avoid fetching the same entry again)
+        fromDate = new Date(entries[entries.length - 1].date + 1);
       } else {
         console.log("No new entries found. Exiting");
         moreEntriesAvailable = false;
