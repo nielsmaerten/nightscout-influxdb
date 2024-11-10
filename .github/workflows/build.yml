@@ -99,5 +99,5 @@ jobs:
           token: ${{ secrets.RELEASE_TOKEN }}
           tag: ${{ github.ref }}
           name: v${{ steps.extract_version.outputs.version }}
-          draft: true
+          draft: false
           artifacts: ./dist/*
