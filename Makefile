@@ -1,6 +1,6 @@
 # Check if deno is installed
 DENO := $(shell command -v deno 2> /dev/null)
-SRC = src/ns-to-influxdb.ts
+SRC = src/nightflux.ts
 OUT_DIR = dist
 
 # Default target
@@ -12,7 +12,7 @@ install: check-deno
 
 # Compile the project
 build: install
-	$(DENO) compile --allow-all --output $(OUT_DIR)/ns-to-influxdb $(SRC)
+	$(DENO) compile --allow-all --output $(OUT_DIR)/nightflux $(SRC)
 
 # Remove the output directory and node_modules
 clean:
