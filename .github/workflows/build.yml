@@ -39,7 +39,7 @@ jobs:
       - name: Upload binary
         uses: actions/upload-artifact@v4
         with:
-          name: ns-to-influxdb-${{ matrix.os }}
+          name: nightflux-${{ matrix.os }}
           path: ./dist/
 
   release:
@@ -87,7 +87,7 @@ jobs:
                 exit 1
                 ;;
             esac
-            mv "$dir"/ns-to-influxdb$EXT ./dist/ns-to-influxdb-$OS_NAME-$VERSION$EXT
+            mv "$dir"/ns-to-influxdb$EXT ./dist/nightflux-$OS_NAME-$VERSION$EXT
           done
 
       - name: Display structure of downloaded files

@@ -18,12 +18,12 @@ A tool for pulling Nightscout data into InfluxDB.
 Copy [`example.env`](./example.env) to `.env`. Make sure to fill in the required
 values.
 
-By default, running `ns-to-influxdb` will attempt to transfer all entries from
+By default, running `nightflux` will attempt to transfer all entries from
 your Nightscout site to the target InfluxDB. If you want to use a custom
 timeframe, use the `--from` and `--to` flags:
 
 ```bash
-ns-to-influxdb [--from 2024-10-01] [--to 2024-11-01]
+nightflux [--from 2024-10-01] [--to 2024-11-01]
 ```
 
 ### Crontab
