@@ -68,7 +68,7 @@ jobs:
           VERSION: ${{ steps.extract_version.outputs.version }}
         run: |
           for dir in ./dist/*; do
-            ORIGINAL_OS_NAME=$(basename "$dir" | sed 's/ns-to-influxdb-//')
+            ORIGINAL_OS_NAME=$(basename "$dir" | sed 's/nightflux-//')
             case "$ORIGINAL_OS_NAME" in
               windows-latest)
                 OS_NAME="win"
@@ -87,7 +87,7 @@ jobs:
                 exit 1
                 ;;
             esac
-            mv "$dir"/ns-to-influxdb$EXT ./dist/nightflux-$OS_NAME-$VERSION$EXT
+            mv "$dir"/nightflux$EXT ./dist/nightflux-$OS_NAME-$VERSION$EXT
           done
 
       - name: Display structure of downloaded files
