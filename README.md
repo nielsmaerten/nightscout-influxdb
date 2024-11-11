@@ -15,8 +15,11 @@ A tool for pulling Nightscout data into InfluxDB.
 
 ### First run
 
-Copy [`example.env`](./example.env) to `.env`. Make sure to fill in the required
-values.
+- Copy `example.env` to `.env` and fill in the values
+- Use the `--env` flag if the file is not in the working directory:
+```
+nightflux [--env /path/to/.env]
+```
 
 By default, running `nightflux` will attempt to transfer all entries from
 your Nightscout site to the target InfluxDB. If you want to use a custom
