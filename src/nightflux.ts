@@ -12,8 +12,17 @@ import * as qs from "qs";
 import * as dotenv from "dotenv";
 import * as process from "node:process";
 
-// Load environment variables from .env file
-dotenv.config();
+// Load environment variables from .env file or specified env file
+const args = process.argv.slice(2);
+let envFilePath = ".env";
+
+args.forEach((arg, index) => {
+  if (arg === "--env" && args[index + 1]) {
+    envFilePath = args[index + 1];
+  }
+});
+
+dotenv.config({ path: envFilePath });
 
 // Get env vars
 const {
@@ -271,7 +280,6 @@ export async function pointFromTreatment(
 
 // Main function
 async function main() {
-  const args = process.argv.slice(2);
   let fromDate: Date | null = null;
   let toDate: Date | null = null;
 
