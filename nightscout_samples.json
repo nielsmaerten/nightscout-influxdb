@@ -1,0 +1,681 @@
+{
+  "Temp Basal": [
+    {
+      "_id": "5c946c7f8114640004987f4c",
+      "eventType": "Temp Basal",
+      "duration": 30,
+      "percent": -40,
+      "rate": 0.6,
+      "pumpId": 845,
+      "created_at": "2019-03-22T05:02:37Z",
+      "enteredBy": "openaps://AndroidAPS",
+      "NSCLIENT_ID": 1553230957667
+    },
+    {
+      "_id": "5c9298ade5118d0004e4a5e5",
+      "eventType": "Temp Basal",
+      "created_at": "2019-03-20T19:46:41Z",
+      "enteredBy": "openaps://AndroidAPS",
+      "pumpId": 567,
+      "NSCLIENT_ID": 1553111213453
+    },
+    {
+      "_id": "5c90ae1628f4680004ae0289",
+      "eventType": "Temp Basal",
+      "duration": 30,
+      "percent": -100,
+      "rate": 0,
+      "pumpId": 459,
+      "created_at": "2019-03-19T08:53:13Z",
+      "enteredBy": "openaps://AndroidAPS",
+      "NSCLIENT_ID": 1552985594153
+    }
+  ],
+  "Correction Bolus": [
+    {
+      "_id": "5c9032b928f4680004ae00cc",
+      "eventType": "Correction Bolus",
+      "insulin": 1.0000000149011612,
+      "created_at": "2019-03-18T17:03:51Z",
+      "date": 1552928631054,
+      "isSMB": false,
+      "pumpId": 155,
+      "NSCLIENT_ID": 1552928631096
+    },
+    {
+      "_id": "5c8f167cb0c4740004b869af",
+      "eventType": "Correction Bolus",
+      "insulin": 2.0000000298023224,
+      "created_at": "2019-03-18T03:54:36Z",
+      "date": 1552881276980,
+      "isSMB": false,
+      "pumpId": 142,
+      "NSCLIENT_ID": 1552881277041
+    },
+    {
+      "_id": "5c8f53c18a19160004145d88",
+      "eventType": "Correction Bolus",
+      "insulin": 2.0000000298023224,
+      "created_at": "2019-03-18T08:16:01Z",
+      "date": 1552896961663,
+      "isSMB": false,
+      "pumpId": 146,
+      "NSCLIENT_ID": 1552896961761
+    }
+  ],
+  "EMPTY": [
+    {
+      "_id": "603d69e68fe64a5b360c353d",
+      "enteredBy": "Niels",
+      "eventType": "",
+      "carbs": 12,
+      "created_at": "2021-03-01T21:00:00.000Z",
+      "utcOffset": 0
+    },
+    {
+      "_id": "6044068b8fe64a5b361f7c50",
+      "enteredBy": "APS",
+      "eventType": "",
+      "carbs": 12,
+      "created_at": "2021-03-06T22:00:00.000Z",
+      "utcOffset": 0
+    },
+    {
+      "_id": "604d40388fe64a5b369f73c2",
+      "enteredBy": "APS",
+      "eventType": "",
+      "carbs": 15,
+      "created_at": "2021-03-13T21:43:00.000Z",
+      "utcOffset": 0
+    }
+  ],
+  "<none>": [
+    {
+      "_id": "5db0580d6fd24d5726c71126",
+      "enteredBy": "",
+      "eventType": "<none>",
+      "reason": "",
+      "carbs": 12,
+      "protein": "",
+      "fat": "",
+      "duration": 0,
+      "created_at": "2019-10-23T12:50:00.000Z",
+      "utcOffset": 0
+    },
+    {
+      "_id": "5e6164a949d89415830f35a6",
+      "enteredBy": "",
+      "eventType": "<none>",
+      "reason": "",
+      "carbs": 10,
+      "protein": "",
+      "fat": "",
+      "duration": 0,
+      "created_at": "2020-03-05T20:44:25.613Z",
+      "utcOffset": 0
+    },
+    {
+      "_id": "5e6e112349d8941583197596",
+      "enteredBy": "",
+      "eventType": "<none>",
+      "reason": "",
+      "carbs": 20,
+      "protein": "",
+      "fat": "",
+      "duration": 0,
+      "created_at": "2020-03-15T11:27:31.839Z",
+      "utcOffset": 0
+    }
+  ],
+  "<None>": [
+    {
+      "_id": "5cffe790f62a680004de4793",
+      "eventType": "<None>",
+      "insulin": 0,
+      "carbs": 0,
+      "created_at": "2019-06-11T13:06:25Z",
+      "NSCLIENT_ID": 1560274832207
+    }
+  ],
+  "Announcement": [
+    {
+      "_id": "5c972729ab2dfb000456a97d",
+      "eventType": "Announcement",
+      "created_at": "2019-03-24T06:43:53Z",
+      "enteredBy": "AndroidAPS",
+      "notes": "Missed BG readings",
+      "isAnnouncement": true,
+      "NSCLIENT_ID": 1553409833606
+    },
+    {
+      "_id": "5c9743a9ab2dfb000456a9d3",
+      "eventType": "Announcement",
+      "created_at": "2019-03-24T08:45:29Z",
+      "enteredBy": "AndroidAPS",
+      "notes": "Connection timed out",
+      "isAnnouncement": true,
+      "NSCLIENT_ID": 1553417129807
+    },
+    {
+      "_id": "5c9c164dd8950a00042b37a3",
+      "eventType": "Announcement",
+      "created_at": "2019-03-28T00:33:17Z",
+      "enteredBy": "AndroidAPS",
+      "notes": "Missed BG readings",
+      "isAnnouncement": true,
+      "NSCLIENT_ID": 1553733197663
+    }
+  ],
+  "BG Check": [
+    {
+      "_id": "5d25de5f6fd24d5726817bb3",
+      "enteredBy": "Nightscout",
+      "eventType": "BG Check",
+      "glucose": 65,
+      "reason": "",
+      "glucoseType": "Finger",
+      "duration": 0,
+      "units": "mg/dl",
+      "created_at": "2019-07-10T09:10:00.000Z"
+    },
+    {
+      "_id": "5d25de1f6fd24d5726817b84",
+      "enteredBy": "Nightscout",
+      "eventType": "BG Check",
+      "glucose": 136,
+      "reason": "",
+      "glucoseType": "Finger",
+      "duration": 0,
+      "units": "mg/dl",
+      "created_at": "2019-07-10T11:25:00.000Z"
+    },
+    {
+      "_id": "5d31f24cc2035100049f5799",
+      "created_at": "2019-07-19T16:25:50Z",
+      "eventType": "BG Check",
+      "glucose": 197,
+      "glucoseType": "Finger",
+      "units": "mg/dl",
+      "NSCLIENT_ID": 1563554379602
+    }
+  ],
+  "Bolus Wizard": [
+    {
+      "_id": "5c94d03a8114640004988082",
+      "eventType": "Bolus Wizard",
+      "carbs": 30,
+      "created_at": "2019-03-22T12:08:26Z",
+      "date": 1553256506933,
+      "isSMB": false,
+      "glucose": 114,
+      "glucoseType": "Manual",
+      "boluscalc": {
+        "profile": "21.00U ",
+        "notes": "",
+        "eventTime": "2019-03-22T12:08:22Z",
+        "targetBGLow": 90,
+        "targetBGHigh": 130,
+        "isf": 80,
+        "ic": 11,
+        "iob": 4.67,
+        "bolusiob": -3.262,
+        "basaliob": -1.408,
+        "bolusiobused": true,
+        "basaliobused": true,
+        "bg": 114,
+        "insulinbg": 0,
+        "insulinbgused": true,
+        "bgdiff": 0,
+        "insulincarbs": 2.727272727272727,
+        "carbs": 30,
+        "cob": 13.106499999999956,
+        "cobused": true,
+        "insulincob": 1.191499999999996,
+        "othercorrection": 0,
+        "insulinsuperbolus": 0,
+        "insulintrend": -0.096,
+        "insulin": 0,
+        "superbolusused": false,
+        "trendused": true,
+        "trend": "-8 mg/dl",
+        "ttused": false
+      },
+      "NSCLIENT_ID": 1553256506967
+    },
+    {
+      "_id": "5c927c86e5118d0004e4a538",
+      "eventType": "Bolus Wizard",
+      "insulin": 5.200000077486038,
+      "carbs": 50,
+      "created_at": "2019-03-20T12:32:58Z",
+      "date": 1553085178349,
+      "isSMB": false,
+      "pumpId": 185,
+      "glucose": 217.7,
+      "glucoseType": "Manual",
+      "boluscalc": {
+        "profile": "52.50U (250%)",
+        "notes": "",
+        "eventTime": "2019-03-20T12:31:50Z",
+        "targetBGLow": 90,
+        "targetBGHigh": 130,
+        "isf": 32,
+        "ic": 4.4,
+        "iob": 8.728,
+        "bolusiob": -8.151,
+        "basaliob": -0.577,
+        "bolusiobused": true,
+        "basaliobused": true,
+        "bg": 217.7,
+        "insulinbg": 2.7406249999999996,
+        "insulinbgused": true,
+        "bgdiff": 87.69999999999999,
+        "insulincarbs": 11.363636363636363,
+        "carbs": 50,
+        "cob": 0,
+        "cobused": true,
+        "insulincob": 0,
+        "othercorrection": 0,
+        "insulinsuperbolus": 0,
+        "insulintrend": -0.073125,
+        "insulin": 5.300000000000001,
+        "superbolusused": false,
+        "trendused": true,
+        "trend": "-2 mg/dl",
+        "ttused": false
+      },
+      "NSCLIENT_ID": 1553085178406
+    },
+    {
+      "_id": "5c93755ee5118d0004e4a896",
+      "eventType": "Bolus Wizard",
+      "insulin": 0.7500000111758709,
+      "carbs": 50,
+      "created_at": "2019-03-21T11:28:30Z",
+      "date": 1553167710257,
+      "isSMB": false,
+      "pumpId": 202,
+      "glucose": 117,
+      "glucoseType": "Manual",
+      "boluscalc": {
+        "profile": "21.00U ",
+        "notes": "",
+        "eventTime": "2019-03-21T11:28:22Z",
+        "targetBGLow": 90,
+        "targetBGHigh": 130,
+        "isf": 80,
+        "ic": 11,
+        "iob": 3.886,
+        "bolusiob": -4.056,
+        "basaliob": 0.17,
+        "bolusiobused": true,
+        "basaliobused": true,
+        "bg": 117,
+        "insulinbg": 0,
+        "insulinbgused": true,
+        "bgdiff": 0,
+        "insulincarbs": 4.545454545454546,
+        "carbs": 50,
+        "cob": 0,
+        "cobused": true,
+        "insulincob": 0,
+        "othercorrection": 0,
+        "insulinsuperbolus": 0,
+        "insulintrend": 0.0915,
+        "insulin": 0.75,
+        "superbolusused": false,
+        "trendused": true,
+        "trend": "+7 mg/dl",
+        "ttused": false
+      },
+      "NSCLIENT_ID": 1553167710334
+    }
+  ],
+  "Carb Correction": [
+    {
+      "_id": "5c927c3be5118d0004e4a4de",
+      "eventType": "Carb Correction",
+      "carbs": 35,
+      "created_at": "2019-03-20T07:49:22Z",
+      "date": 1553068162841,
+      "isSMB": false,
+      "NSCLIENT_ID": 1553068164467
+    },
+    {
+      "_id": "5c9559b60d5efb000437cf69",
+      "eventType": "Carb Correction",
+      "carbs": 20,
+      "created_at": "2019-03-22T21:55:00Z",
+      "date": 1553291700579,
+      "isSMB": false,
+      "NSCLIENT_ID": 1553291702508
+    },
+    {
+      "_id": "5c966bbcdab6fb00042bfe76",
+      "eventType": "Carb Correction",
+      "carbs": 10,
+      "created_at": "2019-03-23T17:24:11Z",
+      "date": 1553361851266,
+      "isSMB": false,
+      "NSCLIENT_ID": 1553361852388
+    }
+  ],
+  "Exercise": [
+    {
+      "_id": "5c93af418114640004987cf0",
+      "created_at": "2019-03-21T15:00:44Z",
+      "eventType": "Exercise",
+      "duration": 30,
+      "units": "mg/dl",
+      "NSCLIENT_ID": 1553181976598
+    },
+    {
+      "_id": "5c96aa23dab6fb00042bff2c",
+      "created_at": "2019-03-23T22:00:23Z",
+      "eventType": "Exercise",
+      "duration": 20,
+      "units": "mg/dl",
+      "NSCLIENT_ID": 1553377828003
+    },
+    {
+      "_id": "5c90371e28f4680004ae0139",
+      "created_at": "2019-03-18T23:45:15Z",
+      "eventType": "Exercise",
+      "duration": 30,
+      "units": "mg/dl",
+      "NSCLIENT_ID": 1552955167001
+    }
+  ],
+  "Insulin Change": [
+    {
+      "_id": "5c9133883ef9f200049c2d1c",
+      "created_at": "2019-03-19T18:21:27Z",
+      "eventType": "Insulin Change",
+      "NSCLIENT_ID": 1553019765110
+    },
+    {
+      "_id": "5c8f830f8a19160004145e04",
+      "created_at": "2019-03-18T11:35:10Z",
+      "eventType": "Insulin Change",
+      "NSCLIENT_ID": 1552909058417
+    },
+    {
+      "_id": "5c93cbe38114640004987d52",
+      "created_at": "2019-03-21T17:35:12Z",
+      "eventType": "Insulin Change",
+      "NSCLIENT_ID": 1553189845865
+    }
+  ],
+  "Meal Bolus": [
+    {
+      "_id": "5c8f48738a19160004145d68",
+      "eventType": "Meal Bolus",
+      "insulin": 3,
+      "created_at": "2019-03-18T07:24:11Z",
+      "date": 1552893851466,
+      "isSMB": false,
+      "pumpId": 143,
+      "NSCLIENT_ID": 1552894067548
+    },
+    {
+      "_id": "5c94d020811464000498807e",
+      "eventType": "Meal Bolus",
+      "insulin": 3,
+      "created_at": "2019-03-22T12:01:34Z",
+      "date": 1553256094511,
+      "isSMB": false,
+      "pumpId": 224,
+      "NSCLIENT_ID": 1553256480561
+    },
+    {
+      "_id": "5c95f24e0d5efb000437d13f",
+      "eventType": "Meal Bolus",
+      "insulin": 4,
+      "created_at": "2019-03-23T08:35:10Z",
+      "date": 1553330110547,
+      "isSMB": false,
+      "pumpId": 246,
+      "NSCLIENT_ID": 1553330766622
+    }
+  ],
+  "Note": [
+    {
+      "_id": "5c93cbe38114640004987d51",
+      "created_at": "2019-03-21T17:35:51Z",
+      "eventType": "Note",
+      "notes": "Tube changed",
+      "NSCLIENT_ID": 1553189845850
+    },
+    {
+      "_id": "5c93ca528114640004987d4b",
+      "created_at": "2019-03-21T17:30:40Z",
+      "eventType": "Note",
+      "notes": "Maintenance M21: Cartridge empty",
+      "NSCLIENT_ID": 1553189440649
+    },
+    {
+      "_id": "5c8ee750b0c4740004b86938",
+      "created_at": "2019-03-18T00:33:05Z",
+      "eventType": "Note",
+      "notes": "Warning W31: Cartridge low",
+      "NSCLIENT_ID": 1552869200878
+    }
+  ],
+  "OpenAPS Offline": [
+    {
+      "_id": "5c9032ec28f4680004ae0111",
+      "eventType": "OpenAPS Offline",
+      "duration": 30,
+      "created_at": "2019-03-18T22:18:54Z",
+      "enteredBy": "openaps://AndroidAPS",
+      "NSCLIENT_ID": 1552947534502
+    },
+    {
+      "_id": "5c934d0ae5118d0004e4a818",
+      "eventType": "OpenAPS Offline",
+      "duration": 0,
+      "created_at": "2019-03-21T08:35:58Z",
+      "enteredBy": "openaps://AndroidAPS",
+      "NSCLIENT_ID": 1553157358305
+    },
+    {
+      "_id": "5c90c01028f4680004ae02bb",
+      "eventType": "OpenAPS Offline",
+      "duration": 15,
+      "created_at": "2019-03-19T10:10:24Z",
+      "enteredBy": "openaps://AndroidAPS",
+      "NSCLIENT_ID": 1552990224126
+    }
+  ],
+  "Profile Switch": [
+    {
+      "_id": "5c903b8928f4680004ae014b",
+      "eventType": "Profile Switch",
+      "duration": 0,
+      "profile": "25.20U (120%)",
+      "profileJson": "{\"dia\":5,\"carbratio\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":11}],\"sens\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":80}],\"basal\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":0.8},{\"time\":\"04:00\",\"timeAsSeconds\":14400,\"value\":1},{\"time\":\"08:00\",\"timeAsSeconds\":28800,\"value\":0.9},{\"time\":\"18:00\",\"timeAsSeconds\":64800,\"value\":0.8}],\"target_low\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":90}],\"target_high\":[{\"timeAsSeconds\":0,\"value\":130}],\"units\":\"mg\\/dl\"}",
+      "profilePlugin": "info.nightscout.androidaps.plugins.profile.local.LocalProfilePlugin",
+      "CircadianPercentageProfile": true,
+      "timeshift": 0,
+      "percentage": 120,
+      "created_at": "2019-03-19T00:44:57Z",
+      "enteredBy": "AndroidAPS",
+      "NSCLIENT_ID": 1552956297953
+    },
+    {
+      "_id": "5c908c2d28f4680004ae022d",
+      "eventType": "Profile Switch",
+      "duration": 0,
+      "profile": "39.90U (190%)",
+      "profileJson": "{\"dia\":5,\"carbratio\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":11}],\"sens\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":80}],\"basal\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":0.8},{\"time\":\"04:00\",\"timeAsSeconds\":14400,\"value\":1},{\"time\":\"08:00\",\"timeAsSeconds\":28800,\"value\":0.9},{\"time\":\"18:00\",\"timeAsSeconds\":64800,\"value\":0.8}],\"target_low\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":90}],\"target_high\":[{\"timeAsSeconds\":0,\"value\":130}],\"units\":\"mg\\/dl\"}",
+      "profilePlugin": "info.nightscout.androidaps.plugins.profile.local.LocalProfilePlugin",
+      "CircadianPercentageProfile": true,
+      "timeshift": 0,
+      "percentage": 190,
+      "created_at": "2019-03-19T06:29:01Z",
+      "enteredBy": "AndroidAPS",
+      "NSCLIENT_ID": 1552976941737
+    },
+    {
+      "_id": "5c915b1a3ef9f200049c2d80",
+      "eventType": "Profile Switch",
+      "duration": 0,
+      "profile": "21.00U ",
+      "profileJson": "{\"dia\":5,\"carbratio\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":11}],\"sens\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":80}],\"basal\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":0.8},{\"time\":\"04:00\",\"timeAsSeconds\":14400,\"value\":1},{\"time\":\"08:00\",\"timeAsSeconds\":28800,\"value\":0.9},{\"time\":\"18:00\",\"timeAsSeconds\":64800,\"value\":0.8}],\"target_low\":[{\"time\":\"00:00\",\"timeAsSeconds\":0,\"value\":90}],\"target_high\":[{\"timeAsSeconds\":0,\"value\":130}],\"units\":\"mg\\/dl\"}",
+      "profilePlugin": "info.nightscout.androidaps.plugins.profile.local.LocalProfilePlugin",
+      "created_at": "2019-03-19T21:11:54Z",
+      "enteredBy": "AndroidAPS",
+      "NSCLIENT_ID": 1553029914688
+    }
+  ],
+  "Pump Battery Change": [
+    {
+      "_id": "5c9eaccd3bae5f000436d42b",
+      "created_at": "2019-03-29T23:38:34Z",
+      "eventType": "Pump Battery Change",
+      "NSCLIENT_ID": 1553902773283
+    },
+    {
+      "_id": "5cb35514573c010004730c58",
+      "created_at": "2019-04-14T15:40:29Z",
+      "eventType": "Pump Battery Change",
+      "NSCLIENT_ID": 1555256568588
+    },
+    {
+      "_id": "5cc718ee0a8bbd0004acec5a",
+      "created_at": "2019-04-29T15:29:07Z",
+      "eventType": "Pump Battery Change",
+      "NSCLIENT_ID": 1556551890633
+    }
+  ],
+  "Question": [
+    {
+      "_id": "5d5dfd2824a1c20004d73c06",
+      "created_at": "2019-08-22T02:25:01Z",
+      "eventType": "Question",
+      "glucose": 210,
+      "glucoseType": "Sensor",
+      "notes": "How to account for the 'missed' insulin? iob and AS are off now!",
+      "units": "mg/dl",
+      "NSCLIENT_ID": 1566440742974
+    }
+  ],
+  "Sensor Change": [
+    {
+      "_id": "5c9661b7dab6fb00042bfe5b",
+      "created_at": "2019-03-23T15:05:21Z",
+      "eventType": "Sensor Change",
+      "glucose": 39,
+      "glucoseType": "Sensor",
+      "units": "mg/dl",
+      "NSCLIENT_ID": 1553359287907
+    },
+    {
+      "_id": "5ca78577153fbc00047fa5e0",
+      "created_at": "2019-04-05T15:25:46Z",
+      "eventType": "Sensor Change",
+      "glucose": 63,
+      "glucoseType": "Sensor",
+      "units": "mg/dl",
+      "NSCLIENT_ID": 1554482552530
+    },
+    {
+      "_id": "5cb9c3d0f37dea0004449b5a",
+      "created_at": "2019-04-19T11:28:20Z",
+      "eventType": "Sensor Change",
+      "units": "mg/dl",
+      "NSCLIENT_ID": 1555678160549
+    }
+  ],
+  "Sensor Start": [
+    {
+      "_id": "30effca84b244474b79a35fc",
+      "timestamp": 1558164635121,
+      "eventType": "Sensor Start",
+      "enteredBy": "xdrip",
+      "uuid": "30effca8-4b24-4474-b79a-35fc2affd1b0",
+      "created_at": "2019-05-18T07:30:35Z",
+      "sysTime": "2019-05-18T09:30:35.121+0200"
+    },
+    {
+      "_id": "45006605fc8f46d0bbda9a08",
+      "timestamp": 1558078036572,
+      "eventType": "Sensor Start",
+      "enteredBy": "xdrip",
+      "uuid": "45006605-fc8f-46d0-bbda-9a0841dc798e",
+      "created_at": "2019-05-17T07:27:16Z",
+      "sysTime": "2019-05-17T09:27:16.572+0200"
+    },
+    {
+      "_id": "3b33971dbcc24f15a4ea9653",
+      "timestamp": 1556876724740,
+      "eventType": "Sensor Start",
+      "enteredBy": "xdrip",
+      "uuid": "3b33971d-bcc2-4f15-a4ea-96532048ce7d",
+      "created_at": "2019-05-03T09:45:24Z",
+      "sysTime": "2019-05-03T11:45:24.740+0200"
+    }
+  ],
+  "Site Change": [
+    {
+      "_id": "5c964a5c0d5efb000437d24d",
+      "eventType": "Site Change",
+      "created_at": "2019-03-23T15:01:48Z",
+      "enteredBy": "AndroidAPS",
+      "notes": "",
+      "NSCLIENT_ID": 1553353308516
+    },
+    {
+      "_id": "5c91d98e3ef9f200049c2ef7",
+      "eventType": "Site Change",
+      "created_at": "2019-03-20T06:11:26Z",
+      "enteredBy": "AndroidAPS",
+      "notes": "",
+      "NSCLIENT_ID": 1553062286510
+    },
+    {
+      "_id": "5c9745f4ab2dfb000456a9e0",
+      "created_at": "2019-03-24T08:53:13Z",
+      "eventType": "Site Change",
+      "NSCLIENT_ID": 1553417694466
+    }
+  ],
+  "Temporary Target": [
+    {
+      "_id": "5c92ad0fe5118d0004e4a61e",
+      "eventType": "Temporary Target",
+      "duration": 30,
+      "reason": "Hypo",
+      "targetBottom": 120,
+      "targetTop": 120,
+      "created_at": "2019-03-20T21:13:51Z",
+      "units": "mg/dl",
+      "enteredBy": "AndroidAPS",
+      "NSCLIENT_ID": 1553116431304
+    },
+    {
+      "_id": "5c929ae3e5118d0004e4a5eb",
+      "eventType": "Temporary Target",
+      "duration": 30,
+      "reason": "Hypo",
+      "targetBottom": 120,
+      "targetTop": 120,
+      "created_at": "2019-03-20T19:56:18Z",
+      "units": "mg/dl",
+      "enteredBy": "AndroidAPS",
+      "NSCLIENT_ID": 1553111779045
+    },
+    {
+      "_id": "5c92b231e5118d0004e4a62d",
+      "eventType": "Temporary Target",
+      "duration": 30,
+      "reason": "Hypo",
+      "targetBottom": 120,
+      "targetTop": 120,
+      "created_at": "2019-03-20T21:35:45Z",
+      "units": "mg/dl",
+      "enteredBy": "AndroidAPS",
+      "NSCLIENT_ID": 1553117745404
+    }
+  ]
+}
