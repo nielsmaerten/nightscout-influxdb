@@ -1,0 +1,9 @@
+- I'm busy creating types for the different Nightscout treatments
+  in ns-to-influxdb.ts
+
+- eventType is not really usable because of Nightscout's unsafe types.
+- Just checking whether a document has fiels like 'carbs' or 'insulin'
+  may be better.
+
+- Let's first try to get boluses and carbs into the Influxdb.
+- Then we can start looking at basal rates, exercise, etc.

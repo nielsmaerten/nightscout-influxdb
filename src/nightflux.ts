@@ -68,7 +68,7 @@ async function getJWT(): Promise<string> {
  * Uses a short range search if true. This
  * happens when the function is called recursively to retry with a long range.
  */
-async function getLatestTimestamp(
+function getLatestTimestamp(
   { __shortRange } = { __shortRange: true },
 ): Promise<number> {
   const queryApi = influxDB.getQueryApi(INFLUXDB_ORG);
@@ -84,9 +84,11 @@ async function getLatestTimestamp(
 
   if (__shortRange) {
     console.log("Querying InfluxDB for the most recent measurement...");
-  } else {console.log(
+  } else {
+    console.log(
       "No measurements found in the last 30 days. Extending range...",
-    );}
+    );
+  }
 
   return new Promise<number>((resolve, reject) => {
     let latestTime: number | null = null;
@@ -158,11 +160,55 @@ async function fetchNightscoutEntries(opts: {
 }
 
 /**
- * Write Nightscout entries to InfluxDB
- * @param entries Array of Nightscout entries
+ * Fetch Nightscout treatments since a given timestamp
+ * @param opts Options object containing since, to, and limit
  */
-async function writeEntriesToInflux(entries: NightscoutEntry[]) {
+async function fetchNightscoutTreatments(opts: {
+  since: number;
+  limit?: number;
+}): Promise<NightscoutTreatment[]> {
+  const { since, limit = 100 } = opts;
+
+  // Nightscout expects dates in milliseconds
+  const params: any = {
+    limit,
+    date$gte: since,
+    sort: "date",
+  };
+
+  const url = `${NIGHTSCOUT_URL}/api/v3/treatments.json`;
+  console.log(
+    "Fetching Nightscout treatments since",
+    new Date(since).toISOString(),
+  );
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${await getJWT()}`,
+      },
+      params,
+      paramsSerializer: (params) => qs.stringify(params, { encode: false }),
+    });
+    return response.data.result;
+  } catch (error: any) {
+    const m = JSON.stringify(error.response.data);
+    console.error("Error fetching Nightscout treatments:", m);
+    throw error;
+  }
+}
+
+/**
+ * Write Nightscout entries and treatments to InfluxDB
+ * @param entries Array of Nightscout entries
+ * @param treatments Array of Nightscout treatments
+ */
+async function writeEntriesToInflux(
+  entries: NightscoutEntry[],
+  treatments: NightscoutTreatment[],
+) {
   console.log("Writing", entries.length, "entries to InfluxDB...");
+  console.log("Writing", treatments.length, "treatments to InfluxDB...");
   const writeApi = influxDB.getWriteApi(INFLUXDB_ORG, INFLUXDB_BUCKET);
 
   for (const entry of entries) {
@@ -174,6 +220,11 @@ async function writeEntriesToInflux(entries: NightscoutEntry[]) {
       .timestamp(new Date(entry.date));
 
     writeApi.writePoint(point);
+  }
+
+  for (const treatment of treatments) {
+    const point = pointFromTreatment(treatment);
+    if (point) writeApi.writePoint(point);
   }
 
   try {
@@ -218,6 +269,15 @@ async function deleteAllNightscoutDataFromInfluxDB() {
   }
 }
 
+/**
+ * Transforms a Nightscout treatment into an InfluxDB point
+ */
+export async function pointFromTreatment(
+  treatment: NightscoutTreatment,
+): Point {
+  const { eventType, carbs, insulin } = treatment;
+}
+
 // Main function
 async function main() {
   let fromDate: Date | null = null;
@@ -245,9 +305,9 @@ async function main() {
   console.log("From date:", fromDate ? fromDate.toISOString() : "not provided");
   console.log("To date:", toDate ? toDate.toISOString() : "not provided");
 
-  let moreEntriesAvailable = true;
+  let moreRecordsAvailable = true;
   try {
-    while (moreEntriesAvailable) {
+    while (moreRecordsAvailable) {
       const since = fromDate ? fromDate.getTime() : await getLatestTimestamp();
 
       let entries = await fetchNightscoutEntries({
@@ -255,18 +315,30 @@ async function main() {
         limit: 1000,
       });
 
-      // If toDate is provided, remove entries after that date
+      let treatments = await fetchNightscoutTreatments({
+        since,
+        limit: 1000,
+      });
+
+      // If toDate is provided, remove entries and treatments after that date
       if (toDate) {
         entries = entries.filter((entry) => entry.date <= toDate.getTime());
+        treatments = treatments.filter((treatment) =>
+          treatment.date <= toDate.getTime()
+        );
       }
 
-      if (entries.length > 0) {
-        await writeEntriesToInflux(entries);
-        // Set fromDate to the last entry date + 1ms (to avoid fetching the same entry again)
-        fromDate = new Date(entries[entries.length - 1].date + 1);
+      if (entries.length > 0 || treatments.length > 0) {
+        await writeEntriesToInflux(entries, treatments);
+        // Set fromDate to the last entry or treatment date + 1ms (to avoid fetching the same entry or treatment again)
+        const lastDate = Math.max(
+          entries.length > 0 ? entries[entries.length - 1].date : 0,
+          treatments.length > 0 ? treatments[treatments.length - 1].date : 0,
+        );
+        fromDate = new Date(lastDate + 1);
       } else {
-        console.log("No new entries found. Exiting");
-        moreEntriesAvailable = false;
+        console.log("No new entries or treatments found. Exiting");
+        moreRecordsAvailable = false;
       }
     }
   } catch (error: any) {
@@ -282,3 +354,20 @@ type NightscoutEntry = {
   dateString: string;
   // There's more, but we only need these fields
 };
+
+interface NightscoutTreatment {
+  eventType: string;
+  date: number;
+  carbs?: number;
+  isSMB?: boolean;
+  insulin?: number;
+
+};
+
+interface TempBasal extends NightscoutTreatment {
+  rate: number;
+  duration: number;
+}
+
+
+
