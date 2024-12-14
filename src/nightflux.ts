@@ -68,7 +68,7 @@ async function getJWT(): Promise<string> {
  * Uses a short range search if true. This
  * happens when the function is called recursively to retry with a long range.
  */
-async function getLatestTimestamp(
+function getLatestTimestamp(
   { __shortRange } = { __shortRange: true },
 ): Promise<number> {
   const queryApi = influxDB.getQueryApi(INFLUXDB_ORG);
