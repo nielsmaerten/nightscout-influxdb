@@ -35,9 +35,13 @@ To periodically pull your latest Nightscout entries into InfluxDB, simply run
 this tool as a cron job.
 
 ## Roadmap
-
-- [x] Entries (just sensor values)
-- [ ] Treatments (boluses, carbs, etc...)
+### v1
+- [x] Glucose measurements (just sensor values)
+- [ ] Basal rate changes (TBR, Pump stopped, Pump disconnected)
+- [ ] Treatments (boluses, carbs)
+### vNext
+- [ ] Notes to indicate a specific custom event (eg: Use the a keyword such as DAD (diabetic alert dog))
+- [ ] Exercise (duration, intensity)
 
 ## Work in progress
 
