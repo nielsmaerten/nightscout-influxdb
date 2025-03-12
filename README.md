@@ -1,3 +1,6 @@
+# ℹ️ Heads up: This projects has moved.
+New location: https://github.com/nielsmaerten/nightflux
+
 # Nightscout to InfluxDB
 
 A tool for pulling Nightscout data into InfluxDB.
